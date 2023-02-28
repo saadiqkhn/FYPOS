@@ -1,7 +1,7 @@
-<!-- @include('top') -->
+@include('top')
 
   <!-- ======= Header ======= -->
-<!-- @include('header')   -->
+@include('header')  
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
 
@@ -29,4 +29,4 @@
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
- <!-- @include('footer') -->
+ @include('footer')
