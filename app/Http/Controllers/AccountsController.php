@@ -7,6 +7,8 @@ use DB;
 use Session;
 use Carbon\Carbon; 
 use File;
+use App\Http\Controllers\MailController;
+
 class AccountsController extends Controller
 {
     public function index()
@@ -90,44 +92,45 @@ class AccountsController extends Controller
 
     public function doprojectentry(Request $req)
     {
-    	//return $req->all();
-    	$data1 = DB::select("select * from accounts where email=? and role=1",[$req->m1]);
-    	if(!$data1)
-    	{
-    		return redirect()->back()->with('pmess', $req->m1 . " not registered yet or Student");
-    	}
-    	$data2 = DB::select("select * from accounts where email=? and role=1",[$req->m2]);
-    	if(!$data2)
-    	{
-    		return redirect()->back()->with('pmess', $req->m2 . " not registered yet or Student");
-    	}
-    	$data3 = DB::select("select * from accounts where email=? and role=1",[$req->m3]);
-    	if(!$data3)
-    	{
-    		return redirect()->back()->with('pmess', $req->m3 . " not registered yet or Student");
-    	}
-
-    	$sup1 = DB::select("select * from accounts where email=? and role=2",[$req->s1]);
-    	if(!$sup1)
-    	{
-    		return redirect()->back()->with('pmess', $req->s1 . " not registered yet or Teacher");
-    	}
-    	$sup2 = DB::select("select * from accounts where email=? and role=2",[$req->s2]);
-    	if(!$sup2)
-    	{
-    		return redirect()->back()->with('pmess', $req->s2 . " not registered yet or Teacher");
-    	}
-    	//return $req->cuser;
-
-    	DB::insert("insert into projects values(?,?,?,?,?,?,?,?,?)",[
-    		null,$req->ptitle,$req->m1,$req->m2,$req->m3,$req->cuser,$req->s1,$req->s2,$req->pddate]);
-
-    	return redirect('/studentdashboard');
-
+		foreach ($req->student as $student) {
+			if($student != null){
+				$data1 = DB::select("select * from accounts where email=? and role=1",[$student]);
+				if(!$data1)
+				{
+					return redirect()->back()->with('pmess', $student . " not registered yet or Student");
+				}
+			}
+		}
+		
+		foreach ($req->teacher as $teacher) {
+			if($teacher != null)
+			{ 
+				$sup1 = DB::select("select * from accounts where email=? and role=2",[$teacher]);
+				if(!$sup1)
+				{
+					return redirect()->back()->with('pmess', $teacher . " not registered yet or Teacher");
+				}
+			}
+		}
+		
+		// $userExist = DB::select("select * from projects where member4=?",[$req->cuser,$req->cuser,$req->cuser,$req->cuser]);
+    	//  dd($userExist);
+		new MailController($req->cuser);
+		// if($userExist){
+			DB::insert("insert into projects values(?,?,?,?,?,?,?,?,?)",[
+				null,$req->ptitle,$student[0]??null, $student[1]??null, $student[2]??null,$req->cuser,$teacher[0]??null,$teacher[1]??null,$req->pddate]);
+	
+			return redirect('/studentdashboard');
+		// }
+		// else{
+		// 	return redirect()->back()->with("Project Already Exist");
+		// }
+    	
     }
     public function studentdashboard(Request $req)
     {
         $cuser = session()->get("cuser");
+		// dd($cuser);
         $user = DB::select("select * from projects where member1=? or member2=? or member3=? or member4=?",[$cuser,$cuser,$cuser,$cuser]);
                 if($user)
                 {
@@ -176,7 +179,7 @@ class AccountsController extends Controller
     	$file =  $request->myfile;
     	$filename =  $file->getClientOriginalName();
     	$cuser = session()->get('cuser');
-    			$user = DB::select("select * from projects where member1=? or member2=? or member3=? or member4=?",[$cuser,$cuser,$cuser,$cuser]);
+    			$user = DB::select("select * from projects where member4=?",[$cuser,$cuser,$cuser,$cuser]);
     	$pid = $user[0]->id;	
 
 

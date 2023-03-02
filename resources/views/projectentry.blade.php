@@ -17,7 +17,7 @@
         	@if(session('pmess')) 
               <strong><font color='red'>{{ session('pmess') }}</font></strong> 
          @endif
-          <!-- <form action="/doprojectentry" method="post"> -->
+          <form action="/doprojectentry" method="post">
           	@csrf
           	<input type="hidden" value="{{session('cuser')}}" name="cuser"/>     
           	<div class="form-group">
@@ -26,19 +26,19 @@
           	</div>
           	<div class="form-group">
           		<label> <strong>Project Members:</strong></label>
-          		<input type="text" class="form-control" name="m1" value="{{old('m1')}}" required>
-          		<input type="text" class="form-control" name="m2" value="{{old('m2')}}" required>
-          		<input type="text" class="form-control" name="m3" value="{{old('m3')}}" required>
+          		<input type="email" class="form-control" name="student[]" value="{{old('student[0]')}}" >
+          		<input type="email" class="form-control" name="student[]" value="{{old('student[1]')}}" >
+          		<input type="email" class="form-control" name="student[]" value="{{old('student[2]')}}" >
           	</div>
           	<div class="form-group">
           		<label> <strong>Project Supervisor:</strong></label>
-          		<input type="text" class="form-control" name="s1" value="{{old('s1')}}" required>
-          		<input type="text" class="form-control" name="s2" value="{{old('s2')}}" required>
+          		<input type="email" class="form-control" name="teacher[]" value="{{old('teacher[0]')}}" >
+          		<input type="email" class="form-control" name="teacher[]" value="{{old('teacher[1]')}}" >
           		
           	</div>
           	<div class="form-group">
           		<label> <strong>Project Deadline:</strong></label>
-          		<input type="date" class="form-control" name="pddate">
+          		<input type="date" class="form-control" name="pddate" required>
 
           	</div>
 
