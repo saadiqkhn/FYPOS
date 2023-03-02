@@ -13,6 +13,7 @@
            <!-- <a href="#about" class="btn-get-started scrollto">Get Started</a>-->
           </div>
         </div>
+		
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200" style="margin-top:100px;" >
         	@if(session('pmess')) 
               <strong><font color='red'>{{ session('pmess') }}</font></strong> 
@@ -22,23 +23,23 @@
           	<input type="hidden" value="{{session('cuser')}}" name="cuser"/>     
           	<div class="form-group">
           		<label> <strong>Project Title:</strong></label>
-          		<input type="text" class="form-control" name="ptitle" value="{{old('ptitle')}}" required>
+          		<input type="text" class="form-control" name="ptitle" placeholder="*" value="{{old('ptitle')}}" required>
           	</div>
           	<div class="form-group">
           		<label> <strong>Project Members:</strong></label>
-          		<input type="email" class="form-control" name="student[]" value="{{old('student[0]')}}" >
-          		<input type="email" class="form-control" name="student[]" value="{{old('student[1]')}}" >
-          		<input type="email" class="form-control" name="student[]" value="{{old('student[2]')}}" >
+          		<input type="email" class="form-control" name="student[]" placeholder="*"  value="{{old('student[0]')}}" >
+          		<input type="email" class="form-control" name="student[]" placeholder=""  value="{{old('student[1]')}}" >
+          		<input type="email" class="form-control" name="student[]" placeholder="" value="{{old('student[2]')}}" >
           	</div>
           	<div class="form-group">
           		<label> <strong>Project Supervisor:</strong></label>
-          		<input type="email" class="form-control" name="teacher[]" value="{{old('teacher[0]')}}" >
-          		<input type="email" class="form-control" name="teacher[]" value="{{old('teacher[1]')}}" >
+          		<input type="email" class="form-control" name="teacher[]" placeholder="*"  value="{{old('teacher[0]')}}" >
+          		<input type="email" class="form-control" name="teacher[]" placeholder="" value="{{old('teacher[1]')}}" >
           		
           	</div>
           	<div class="form-group">
           		<label> <strong>Project Deadline:</strong></label>
-          		<input type="date" class="form-control" name="pddate" required>
+          		<input type="date" class="form-control" placeholder="*"  name="pddate" required>
 
           	</div>
 

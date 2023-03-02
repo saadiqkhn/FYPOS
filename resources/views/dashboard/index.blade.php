@@ -40,7 +40,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">SUP</span>
+        <span class="d-none d-lg-block">Dashboard</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -58,7 +58,7 @@
 
         
 
-        <!-- <li class="nav-item dropdown pe-3">
+        <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             
@@ -72,7 +72,7 @@
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li> --> -->
+            </li> -->
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="#">
@@ -97,7 +97,7 @@
       </ul>
     </nav><!-- End Icons Navigation -->
 
-  </header><!-- End Header -->
+  </header>End Header
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">

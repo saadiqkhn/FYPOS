@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Mail;
 
 Route::get('/sendInvite', [MailController::class, 'sendMailInvite'])->name('sendInvite');
 
-Route::get('/acceptInvite', [MailController::class, 'acceptInvite'])->name('acceptInvite');
+
+Route::get('/acceptInvite/{id?}', [MailController::class, 'acceptInvite'])->name('acceptInvite');
 
 Route::get('/',[AccountsController::class,"index"]);
 Route::get('/login',[AccountsController::class,"login"]);

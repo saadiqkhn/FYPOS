@@ -14,27 +14,19 @@ class MailController extends Controller
     {
         dd("You have successfully accepted the invite");
     }
-
-    public function sendMailInvite($cuser)
+    
+    public function sendMailInvite($emails, $cuser)
     {
         $name = "mate";
-        dd("mate");
-        $user = DB::select("select * from projects where member4=?",[$cuser,$cuser,$cuser,$cuser]);
         
-         //The email sending is done using the to method on the Mail facade
-        Mail::to($user->member1)->send(new MailableName($name, $user->id));
+        $project = DB::select("select * from projects where member4=?",[$cuser]);
+        // dd($project);
+        $projectID = $project[0]->id;
+        foreach ($emails as $email) {
+            //The email sending is done using the to method on the Mail facade
+            // dd($email);
+            Mail::to($email)->send(new MailableName($name, $projectID));
 
-         //The email sending is done using the to method on the Mail facade
-         Mail::to($user->member2)->send(new MailableName($name, $user->id));
-
-          //The email sending is done using the to method on the Mail facade
-        Mail::to($user->member3)->send(new MailableName($name, $user->id));
-
-         //The email sending is done using the to method on the Mail facade
-         Mail::to($user->supervisor1)->send(new MailableName($name, $user->id));
-
-          //The email sending is done using the to method on the Mail facade
-        Mail::to($user->supervisor2)->send(new MailableName($name, $user->id));
-
+        }
     }
 }

@@ -28,6 +28,7 @@
 
 <body>
     <h2>Hey {{$name}}</h2>
+    <h4>i have sent you invite </h4>
     <p> please accept the invite by clicking the button below</p>
     <a href="{{route('acceptInvite', $projectID)}}"><button class="btn btn-secondary">Accept</button><a>
 </body>
