@@ -74,6 +74,10 @@ class AccountsController extends Controller
     			"email"=>"required|unique:accounts",
     			"userpassword"=>"required|min:6"
     		]);
+
+		if($req->projectID != null && $req->member != null){
+			DB::insert("UPDATE projects SET $req->member = '$req->email' WHERE id = $req->projectID");
+		}
     	DB::insert("insert into accounts values(?,?,?,?,?)",[null,$req->userfullname,$req->email,$req->userpassword,$req->role]);
     	return view("login");
 
@@ -93,38 +97,13 @@ class AccountsController extends Controller
     public function doprojectentry(Request $req)
     {
 		$mailArray = array();
-		foreach ($req->student as $student) {
-			if($student != null){
-				$data1 = DB::select("select * from accounts where email=? and role=1",[$student]);
-				if(!$data1)
-				{
-					return redirect()->back()->with('pmess', $student . " not registered yet or Student");
-				}
-				else{
-					array_push($mailArray, $student);
-				}
-			}
-		}
+		array_push($mailArray , ['member1'=>$req->member1, 'member2'=>$req->member2, 'member3'=>$req->member3, 'supervisor1'=>$req->supervisor1, 'supervisor2'=>$req->supervisor2]);
 		
-		foreach ($req->teacher as $teacher) {
-			if($teacher != null)
-			{ 
-				$sup1 = DB::select("select * from accounts where email=? and role=2",[$teacher]);
-				if(!$sup1)
-				{
-					return redirect()->back()->with('pmess', $teacher . " not registered yet or Teacher");
-				}
-				else{
-					array_push($mailArray, $teacher);
-				}
-			}
-		}
-		
-		
+		// only one user resgitser one project
 		$userExist = DB::select("select * from projects where member4=?",[$req->cuser]);
 		
 		if(!$userExist){
-			DB::insert("insert into projects values(?,?,?,?,?,?,?,?,?)",[null,$req->ptitle,$req->student[0]?$req->student[0]:null, $req->student[1]?$req->student[1]:null, $req->student[2]?$req->student[2]:null,$req->cuser,$req->teacher[0]?$req->teacher[0]:null,$req->teacher[1]?$req->teacher[1]:null,$req->pddate]);
+			DB::insert("insert into projects values(?,?,?,?,?,?,?,?,?)",[null,$req->ptitle,null,null, null,$req->cuser,null,null,$req->pddate]);
 				$mailer = new MailController;
 				$mailer->sendMailInvite($mailArray, $req->cuser);
 			return redirect('/studentdashboard');

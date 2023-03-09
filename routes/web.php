@@ -21,10 +21,10 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/sendInvite', [MailController::class, 'sendMailInvite'])->name('sendInvite');
 
 
-Route::get('/acceptInvite/{id?}', [MailController::class, 'acceptInvite'])->name('acceptInvite');
+Route::get('/acceptInvite/{id}/{email}/{member}', [MailController::class, 'acceptInvite'])->name('acceptInvite');
 
 Route::get('/',[AccountsController::class,"index"]);
-Route::get('/login',[AccountsController::class,"login"]);
+Route::get('/login',[AccountsController::class,"login"])->name('login');
 Route::post('/dologin',[AccountsController::class,"dologin"]);
 Route::get('/register',[AccountsController::class,"register"]);
 Route::post('/doregister',[AccountsController::class,"doregister"]);

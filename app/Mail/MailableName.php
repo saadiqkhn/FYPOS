@@ -14,18 +14,22 @@ class MailableName extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $name = "umer";
+    protected $name = "sadiq";
     protected $projectID = 10;
+    protected $email = 'sadiqk214@gmail.com';
+    protected $member = 'member1';
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name, $projectID)
+    public function __construct($name, $projectID, $email, $member)
     {
         $this->name=$name;
         $this->projectID = $projectID;
+        $this->email = $email;
+        $this->member = $member;
     }
 
     /**
@@ -52,7 +56,7 @@ class MailableName extends Mailable
       
         return new Content(
             view: 'test-mail',
-            with: ['name' => $this->name, 'projectID' => $this->projectID ],
+            with: ['name' => $this->name, 'projectID' => $this->projectID , 'email' => $this->email, 'member' => $this->member ],
         );
     }
 

@@ -27,14 +27,14 @@
           	</div>
           	<div class="form-group">
           		<label> <strong>Project Members:</strong></label>
-          		<input type="email" class="form-control" name="student[]" placeholder="*"  value="{{old('student[0]')}}" >
-          		<input type="email" class="form-control" name="student[]" placeholder=""  value="{{old('student[1]')}}" >
-          		<input type="email" class="form-control" name="student[]" placeholder="" value="{{old('student[2]')}}" >
+          		<input type="email" class="form-control" name="member1" placeholder="*"  value="{{old('member1')}}" >
+          		<input type="email" class="form-control" name="member2" placeholder=""  value="{{old('member2')}}" >
+          		<input type="email" class="form-control" name="member3" placeholder="" value="{{old('member3')}}" >
           	</div>
           	<div class="form-group">
           		<label> <strong>Project Supervisor:</strong></label>
-          		<input type="email" class="form-control" name="teacher[]" placeholder="*"  value="{{old('teacher[0]')}}" >
-          		<input type="email" class="form-control" name="teacher[]" placeholder="" value="{{old('teacher[1]')}}" >
+          		<input type="email" class="form-control" name="supervisor1" placeholder="*"  value="{{old('supervisor1')}}" >
+          		<input type="email" class="form-control" name="supervisor2" placeholder="" value="{{old('supervisor2')}}" >
           		
           	</div>
           	<div class="form-group">

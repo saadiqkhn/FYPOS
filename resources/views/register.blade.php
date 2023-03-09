@@ -23,6 +23,9 @@
         @endif
         <form action="/doregister" method="post">
           @csrf
+          
+            <input type="number" hidden name="projectID" value="{{session('projectID')??null}}">
+            <input type="text" hidden name="member" value="{{session('member')??null}}">
           <div class="form-outline mb-4">
             <label class="form-label" for="form3Example3"><strong>Display Name:</strong></label>
             <input type="text" id="form3Example3" class="form-control form-control-lg"
@@ -33,7 +36,7 @@
           <div class="form-outline mb-4">
             <label class="form-label" for="form3Example3"><strong>Email address</strong></label>
             <input type="email" id="form3Example3" class="form-control form-control-lg"
-              placeholder="Enter a valid email address" name="email" value="{{old('email')}}"/>
+              placeholder="Enter a valid email address" name="email" value= "{{ session('email')?session('email'): old('email')}}" @if(session('email')) readonly @endif/>
             
           </div>
 
@@ -45,15 +48,25 @@
             
           </div>
           <!-- Password input -->
-          
+@if(session('member'))
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" id="inlineRadio1" name="role" value="1" checked>
+  <input class="form-check-input" type="radio" id="inlineRadio1" name="role" value="1" onclick="return false;" @if(substr(session('member'),0,1) == 'm') checked @endif >
   <label class="form-check-label" for="inlineRadio1">Student</label>
 </div>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio"  id="inlineRadio2" name="role" value="2">
+  <input class="form-check-input" type="radio"  id="inlineRadio2" name="role" value="2" onclick="return false;"  @if(substr(session('member'),0,1) == 's') checked @endif >
   <label class="form-check-label" for="inlineRadio2">Teacher</label>
 </div>
+@else
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" id="inlineRadio1" name="role" value="1"  checked >
+  <label class="form-check-label" for="inlineRadio1">Student</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio"  id="inlineRadio2" name="role" value="2"  >
+  <label class="form-check-label" for="inlineRadio2">Teacher</label>
+</div>
+@endif
 
           
 

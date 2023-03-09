@@ -28,9 +28,9 @@
 
 <body>
     <h2>Hey {{$name}}</h2>
-    <h4>i have sent you invite </h4>
+    <h4>i have sent you invite as  @if(substr($member,0,1) == 'm') Student @else Teacher @endif </h4>
     <p> please accept the invite by clicking the button below</p>
-    <a href="{{route('acceptInvite', $projectID)}}"><button class="btn btn-secondary">Accept</button><a>
+    <a href="{{route('acceptInvite', [$projectID, $email, $member])}}"><button class="btn btn-secondary">Accept</button><a>
 </body>
 <html>
 
