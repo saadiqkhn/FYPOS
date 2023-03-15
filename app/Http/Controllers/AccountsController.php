@@ -79,7 +79,7 @@ class AccountsController extends Controller
 			DB::insert("UPDATE projects SET $req->member = '$req->email' WHERE id = $req->projectID");
 		}
     	DB::insert("insert into accounts values(?,?,?,?,?)",[null,$req->userfullname,$req->email,$req->userpassword,$req->role]);
-    	return view("login");
+    	return redirect()->route('login');
 
     }
     public function projectentry()

@@ -48,25 +48,25 @@
             
           </div>
           <!-- Password input -->
-@if(session('member'))
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" id="inlineRadio1" name="role" value="1" onclick="return false;" @if(substr(session('member'),0,1) == 'm') checked @endif >
-  <label class="form-check-label" for="inlineRadio1">Student</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio"  id="inlineRadio2" name="role" value="2" onclick="return false;"  @if(substr(session('member'),0,1) == 's') checked @endif >
-  <label class="form-check-label" for="inlineRadio2">Teacher</label>
-</div>
-@else
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" id="inlineRadio1" name="role" value="1"  checked >
-  <label class="form-check-label" for="inlineRadio1">Student</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio"  id="inlineRadio2" name="role" value="2"  >
-  <label class="form-check-label" for="inlineRadio2">Teacher</label>
-</div>
-@endif
+          @if(session('member'))
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="inlineRadio1" name="role" value="1" onclick="return false;" @if(substr(session('member'),0,1) == 'm') checked @endif >
+            <label class="form-check-label" for="inlineRadio1">Student</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  id="inlineRadio2" name="role" value="2" onclick="return false;"  @if(substr(session('member'),0,1) == 's') checked @endif >
+            <label class="form-check-label" for="inlineRadio2">Teacher</label>
+          </div>
+          @else
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="inlineRadio1" name="role" value="1"  checked >
+            <label class="form-check-label" for="inlineRadio1">Student</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  id="inlineRadio2" name="role" value="2"  >
+            <label class="form-check-label" for="inlineRadio2">Teacher</label>
+          </div>
+          @endif
 
           
 

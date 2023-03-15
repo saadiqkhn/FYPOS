@@ -13,7 +13,8 @@ class MailController extends Controller
 {
     public function acceptInvite($projectID, $email, $member)
     {
-        // dd("You have successfully accepted the invite");
+        // dd("You have successfully accepted the invite", $projectID, $email, $member);
+
         Session::put('projectID', $projectID);
         Session::put('email', $email);
         Session::put('member', $member);
