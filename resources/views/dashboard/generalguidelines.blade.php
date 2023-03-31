@@ -111,7 +111,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
       <li class="nav-item">
-        <a class="nav-link " href="/generalguidlines">
+        <a class="nav-link " href="/generalguidelines">
           <i class="bi bi-grid"></i>
           <span>General Guideline</span>
         </a>
@@ -123,7 +123,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
       <li class="nav-item">
-        <a class="nav-link " href="/documentsubmission">
+        <a class="nav-link " href="/">
           <i class="bi bi-grid"></i>
           <span>Document Submission</span>
         </a>
