@@ -40,8 +40,9 @@ class AccountsController extends Controller
     		    	$days =  $today->diffInDays($pdate);
                     
 
-                    
-    		    	return view("dashboard.index",compact('members','supervisors','days'));
+					return redirect('/studentdashboard');
+
+    		    	// return view("dashboard.index",compact('members','supervisors','days'));
                 
                 
     		    }
@@ -129,7 +130,23 @@ class AccountsController extends Controller
     }
     public function studentdashboard(Request $req)
     {
+
+		$guides = DB::select("select * from guidelines inner join projects where guidelines.prjid=projects.id");
+		
+		$length = count($guides);
+
         $cuser = session()->get("cuser");
+
+		$myvisits_length = DB::select("select guideline_views from accounts where email=? ", [$cuser]);
+
+		if($length > $myvisits_length[0]->guideline_views )
+		{
+			$notification = true;
+			// DB::table('accounts')->where('email', $cuser )->update(['guideline_views' => $length]);
+		}
+		else{
+			$notification = false;
+		}
 		// dd($cuser);
         $user = DB::select("select * from projects where member1=? or member2=? or member3=? or member4=?",[$cuser,$cuser,$cuser,$cuser]);
                 if($user)
@@ -143,7 +160,7 @@ class AccountsController extends Controller
                     
 
                     
-                    return view("dashboard.index",compact('members','supervisors','days'));
+                    return view("dashboard.index",compact('members','supervisors','days' , 'notification'));
                 
                 
                 }

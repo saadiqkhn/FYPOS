@@ -25,9 +25,13 @@
   <link href="{{asset('dashboard/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
   <link href="{{asset('dashboard/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
   <link href="{{asset('dashboard/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+  
 
   <!-- Template Main CSS File -->
   <link href="{{asset('dashboard/assets/css/style.css')}}" rel="stylesheet">
+  <!-- Option 1: Include in HTML -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
 
   
 </head>
@@ -58,26 +62,20 @@
 
         
 
-        <!-- <li class="nav-item dropdown pe-3">
+        <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             
-            <span class="d-none d-md-block dropdown-toggle ps-2">Student</span>
-          </a><!-- End Profile Iamge Icon -->
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{session('cuser')}}</span>
+          </a>
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{session('cuser')}}</h6>
+              <h6>Student</h6>
               <span>Member</span>
             </li>
             <li>
               <hr class="dropdown-divider">
-<<<<<<< Updated upstream
-            </li> --> -->
-=======
-            </li>
->>>>>>> Stashed changes
-
             <li>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <i class="bi bi-person"></i>
@@ -103,7 +101,7 @@
 
   </header><!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
+  ======= Sidebar =======
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -117,9 +115,9 @@
       <li class="nav-item">
         <a class="nav-link " href="/generalguidelines">
           <i class="bi bi-grid"></i>
-          <span> General Guidelines</span>
+         <span> General Guidelines  <i class="badge badge-light-warning">@if($notification)has notification @else not yet @endif </i> </span>
         </a>
-      </li><!-- End Dashboard Nav -->
+      </li></s!-- End Dashboard Nav -->
       <li class="nav-item">
         <a class="nav-link " href="/studentdashboard">
           <i class="bi bi-grid"></i>

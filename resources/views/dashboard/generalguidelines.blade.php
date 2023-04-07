@@ -25,10 +25,11 @@
   <link href="{{asset('dashboard/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
   <link href="{{asset('dashboard/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
   <link href="{{asset('dashboard/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+  
 
   <!-- Template Main CSS File -->
   <link href="{{asset('dashboard/assets/css/style.css')}}" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
   
 </head>
 
@@ -62,12 +63,12 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             
-            <span class="d-none d-md-block dropdown-toggle ps-2">Student</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{session('cuser')}}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{session('cuser')}}</h6>
+              <h6>Student</h6>
               <span>Member</span>
             </li>
             <li>
@@ -113,7 +114,8 @@
       <li class="nav-item">
         <a class="nav-link " href="/generalguidelines">
           <i class="bi bi-grid"></i>
-          <span>General Guideline</span>
+          <span>General Guidelines  <i class="badge badge-light-warning">{{count($guides)}} </i> </span>
+          
         </a>
       </li><!-- End Dashboard Nav -->
       <li class="nav-item">
