@@ -170,32 +170,31 @@
         <!-- Left side columns -->
         <div class="col-lg-8">
           
-          
                
+              
+              <h3 class="text-danger mt-1">Guidelines </h3>
+              @foreach($guides as $guid)
 
-                
-                
-          
-          
-          
-
-          <div class="card" style="margin-top:100px;">
+              
+              <div class="card" style="margin-top:15px;">
             
 
-            <div class="card-body pb-0">
-              
-              <h3 class="text-danger mt-3">Guide Lines </h3>
-              @foreach($guides as $guid)
-              <h3 class="text-danger mt-3">Teacher: {{$guid->teacher}} </h3>
-              <h3 class="text-danger mt-3">Project: {{$guid->ptitle}} </h3>
+                <div class="card-body pb-0">
+                  <h3 class="mt-1">Teacher: {{$guid->teacher}} </h3>
+              <h3 class=" mt-1">Project: {{$guid->ptitle}} </h3>
               <div class="news">
                 <div class="post-item clearfix">
                   <img src="assets/img/news-1.jpg" alt="">
                   
-                  <p>{{$guid->guidelines}}</p>
+                  <h3 class="text-primary">{{$guid->guidelines}}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+      
                   
                 @endforeach
-                </div>
+                
 
                 
 

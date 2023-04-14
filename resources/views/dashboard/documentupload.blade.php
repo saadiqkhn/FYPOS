@@ -62,12 +62,12 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             
-            <span class="d-none d-md-block dropdown-toggle ps-2">Student</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{session('cuser')}}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{session('cuser')}}</h6>
+              <h6>Student</h6>
               <span>Member</span>
             </li>
             <li>
@@ -125,7 +125,7 @@
       <li class="nav-item">
         <a class="nav-link " href="/studentdashboard">
           <i class="bi bi-grid"></i>
-          <span>Report Submission</span>
+          <span>Document Submission</span>
         </a>
       </li><!-- End Dashboard Nav -->
       <li class="nav-item">

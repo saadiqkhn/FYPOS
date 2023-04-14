@@ -142,7 +142,7 @@ class AccountsController extends Controller
 		if($length > $myvisits_length[0]->guideline_views )
 		{
 			$notification = true;
-			// DB::table('accounts')->where('email', $cuser )->update(['guideline_views' => $length]);
+			 // DB::table('accounts')->where('email', $cuser )->update(['guideline_views' => $length]);
 		}
 		else{
 			$notification = false;
@@ -190,13 +190,12 @@ class AccountsController extends Controller
     	return view("dashboard.documentupload");
     }
 
-    public function Uploaddocument(Request $request)
+    public function uploaddocument(Request $request)
     {
-        
     	$file =  $request->myfile;
     	$filename =  $file->getClientOriginalName();
     	$cuser = session()->get('cuser');
-    			$user = DB::select("select * from projects where member4=?",[$cuser,$cuser,$cuser,$cuser]);
+    			$user = DB::select("select * from projects where member4=?",[$cuser]);
     	$pid = $user[0]->id;	
 
 
@@ -209,8 +208,8 @@ class AccountsController extends Controller
         {
         	dd ($path);
         }*/
-
-         if(File::isDirectory($path)){
+		// dd ($path);
+        //  if(File::isDirectory($path)){
 
         	if(File::exists(public_path('uploads/'.$pid)))
         	{
@@ -227,7 +226,7 @@ class AccountsController extends Controller
         /* Store $imageName name in DATABASE from HERE */
          
 
-    }
+    // }
         return back()
             ->with('success','You have successfully upload Document.');
             
