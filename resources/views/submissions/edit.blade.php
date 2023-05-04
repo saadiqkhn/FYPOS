@@ -50,6 +50,44 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
+      {{-- @extends('layouts.app') --}}
+
+          <div class="container">
+              <h1>Edit Submission</h1>
+      
+              <form action="{{ route('submissions.update', $submission->id) }}" method="POST">
+                  @csrf
+                  @method('PUT')
+                  <input type="text" hidden name="add_date" value="{{$submission->add_date}}"/>
+      
+                  <div class="form-group">
+                      <label for="title">Title</label>
+                      <input type="text" name="title" id="title" class="form-control" value="{{ $submission->title }}">
+                  </div>
+      
+                  <div class="form-group">
+                      <label for="submission_date">Submission Date</label>
+                      <input type="date" name="submission_date" id="submission_date" class="form-control" value="{{ $submission->submission_date }}">
+                  </div>
+      
+                  <div class="form-group">
+                      <label for="total_marks">Total Marks</label>
+                      <input type="number" name="total_marks" id="total_marks" class="form-control" value="{{ $submission->total_marks }}">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="total_marks">Earned Marks</label>
+                    <input type="number" name="earned_marks" id="earned_marks" class="form-control" value="{{ $submission->earned_marks }}">
+                </div>
+      
+                  <div class="form-group">
+                      <label for="notes">Notes</label>
+                      <textarea name="notes" id="notes" class="form-control">{{ $submission->notes }}</textarea>
+                  </div>
+      
+                  <button type="submit" class="btn btn-primary">Save</button>
+              </form>
+          </div>
       
     </section>
 

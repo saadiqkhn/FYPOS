@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2023 at 06:48 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Jan 01, 2023 at 04:20 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,18 +32,21 @@ CREATE TABLE `accounts` (
   `fullname` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `role` int(11) NOT NULL,
-  `guideline_views` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `role` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`id`, `fullname`, `email`, `password`, `role`, `guideline_views`) VALUES
-(14, 'Ali', 'Ali@gmail.com', 'lahore', 1, 2),
-(15, 'kuvu', 'kuvu@mailinator.com', 'lahore', 1, NULL),
-(16, 'cipoqo', 'cipoqo@mailinator.com', 'lahore', 2, NULL);
+INSERT INTO `accounts` (`id`, `fullname`, `email`, `password`, `role`) VALUES
+(1, 'Sadiq', 'sadiq@gmail.com', 'Pakistan', 1),
+(2, 'Shahbaz', 'shahbaz@gmail.com', 'Pakistan', 1),
+(3, 'Asif', 'asif@gmail.com', 'Lahore', 1),
+(4, 'Hasin Munir', 'hasin@gmail.com', 'Lahore', 2),
+(5, 'Mam Huda', 'huda@gmail.com', 'Lahore', 2),
+(6, 'Hamza', 'hamza@gmail.com', 'Lahore', 1),
+(7, 'New User', 'n1@gmail.com', 'Lahore', 1);
 
 -- --------------------------------------------------------
 
@@ -56,16 +59,15 @@ CREATE TABLE `guidelines` (
   `teacher` varchar(100) NOT NULL,
   `prjid` int(11) NOT NULL,
   `guidelines` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `guidelines`
 --
 
 INSERT INTO `guidelines` (`id`, `teacher`, `prjid`, `guidelines`) VALUES
-(1, 'cipoqo@mailinator.com', 41, 'Hey, Everyone!'),
-(2, 'cipoqo@mailinator.com', 41, 'Hey everyone!'),
-(4, 'cipoqo@mailinator.com', 41, 'Hi');
+(1, 'hasin@gmail.com', 1, 'Please make it fast'),
+(2, 'huda@gmail.com', 1, 'Dear Members you are requested to submit the documents as early as possible');
 
 -- --------------------------------------------------------
 
@@ -76,21 +78,21 @@ INSERT INTO `guidelines` (`id`, `teacher`, `prjid`, `guidelines`) VALUES
 CREATE TABLE `projects` (
   `id` int(11) NOT NULL,
   `ptitle` varchar(200) NOT NULL,
-  `member1` varchar(100) DEFAULT NULL,
-  `member2` varchar(100) DEFAULT NULL,
-  `member3` varchar(100) DEFAULT NULL,
+  `member1` varchar(100) NOT NULL,
+  `member2` varchar(100) NOT NULL,
+  `member3` varchar(100) NOT NULL,
   `member4` varchar(100) NOT NULL,
-  `supervisor1` varchar(100) DEFAULT NULL,
-  `supervisor2` varchar(100) DEFAULT NULL,
+  `supervisor1` varchar(100) NOT NULL,
+  `supervisor2` varchar(100) NOT NULL,
   `pddate` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `projects`
 --
 
 INSERT INTO `projects` (`id`, `ptitle`, `member1`, `member2`, `member3`, `member4`, `supervisor1`, `supervisor2`, `pddate`) VALUES
-(41, 'Earum anim quod minu', NULL, 'kuvu@mailinator.com', NULL, 'Ali@gmail.com', NULL, 'cipoqo@mailinator.com', '2004-06-06');
+(1, 'FYPOS', 'shahbaz@gmail.com', 'hamza@gmail.com', 'asif@gmail.com', 'sadiq@gmail.com', 'hasin@gmail.com', 'huda@gmail.com', '2023-02-25');
 
 --
 -- Indexes for dumped tables
@@ -122,19 +124,19 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `guidelines`
 --
 ALTER TABLE `guidelines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

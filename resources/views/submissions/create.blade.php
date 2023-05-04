@@ -50,7 +50,39 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-      
+      {{-- @extends('layouts.app') --}}
+
+    <div class="container">
+        <h1>Create Submission</h1>
+
+        <form method="post" action="{{route('submissions.store')}}" >
+            @csrf
+
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <input type="text" hidden name="add_date" value="{{date("Y/m/d")}}"/>
+            <input type="text" hidden name="project_id" value="$project_id"/>
+            <div class="form-group">
+                <label for="submission_date">Submission Date</label>
+                <input type="date" class="form-control" id="submission_date" name="submission_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="total_marks">Total Marks</label>
+                <input type="number" class="form-control" id="total_marks" name="total_marks" required>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Notes</label>
+                <textarea class="form-control" id="notes" name="notes" rows="5"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
     </section>
 
   </main><!-- End #main -->

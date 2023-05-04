@@ -50,6 +50,43 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
+      {{-- @extends('layouts.app') --}}
+
+          <div class="container">
+              <h1>Submission Details</h1>
+      
+              <table class="table">
+                  <tbody>
+                      <tr>
+                          <th>Title:</th>
+                          <td>{{ $submission->title }}</td>
+                      </tr>
+                      <tr>
+                          <th>Submission Date:</th>
+                          <td>{{ $submission->submission_date }}</td>
+                      </tr>
+                      <tr>
+                          <th>Total Marks:</th>
+                          <td>{{ $submission->total_marks }}</td>
+                      </tr>
+                      <tr>
+                        <th>Earned Marks:</th>
+                        <td>{{ $submission->earned_marks }}</td>
+                    </tr>
+                      <tr>
+                          <th>Notes:</th>
+                          <td>{{ $submission->notes }}</td>
+                      </tr>
+                  </tbody>
+              </table>
+      
+              <a href="{{ route('submissions.edit', $submission->id) }}" class="btn btn-primary">Edit</a>
+              <form action="{{ route('submissions.destroy', $submission->id) }}" method="POST" style="display: inline-block">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+          </div>
       
     </section>
 

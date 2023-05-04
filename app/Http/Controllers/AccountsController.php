@@ -38,12 +38,8 @@ class AccountsController extends Controller
     		    	$today = Carbon::now();    		    	
     		    	//$interval = $pdate->diff($today);
     		    	$days =  $today->diffInDays($pdate);
-                    
-
 					return redirect('/studentdashboard');
-
     		    	// return view("dashboard.index",compact('members','supervisors','days'));
-                
                 
     		    }
     		    else
@@ -55,20 +51,24 @@ class AccountsController extends Controller
             {
                 session()->put('cuser',$req->email);
                 session()->put('userrole',$req->role);
-                return view("dashboard.teacherdashboard");
+        		$projects = DB::table('projects')->where('supervisor1', $req->email)->orWhere('supervisor2', $req->email)->get();
+				
+                return view("dashboard.select-project", ['projects' => $projects]);
             }
-
-    			
     	}
     	else
     	{
-    		
     		//return session()->get('cuser');
     		return back()->with('message',"Wrong Credentials");
     	}
 
     }
 
+	public function godashboard($project_id)
+	{
+		session()->put('project_id',$project_id);
+       	return view("dashboard.teacherdashboard");
+	}
     public function register()
     {
     	return view('register');
@@ -228,7 +228,7 @@ class AccountsController extends Controller
 
     // }
         return back()
-            ->with('success','You have successfully upload Document.');
+            ->with('success','You have successfully uploaded Document.');
             
     }
 

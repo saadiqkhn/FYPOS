@@ -171,7 +171,7 @@
               <h3 class="text-danger mt-3" align="right"><font size="7">Project Document Upload</font></h3>
 
              @if(session('success')) 
-              <p><strong><font color='red'>{{ session('success') }}</font></strong></p> 
+              <p><strong><font color='green'>{{ session('success') }}</font></strong></p> 
             @endif
                 <form class="mt-5" action="/uploaddocument" method="post" enctype="multipart/form-data">
                   @csrf

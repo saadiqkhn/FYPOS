@@ -42,7 +42,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="/" class="logo d-flex align-items-center">
+      <a href="#" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">FYPOS</span>
       </a>
@@ -119,7 +119,7 @@
         </a>
       </li></s!-- End Dashboard Nav -->
       <li class="nav-item">
-        <a class="nav-link " href="/studentdashboard">
+        <a class="nav-link " href="#">
           <i class="bi bi-grid"></i>
           <span>Project Status</span>
         </a>
