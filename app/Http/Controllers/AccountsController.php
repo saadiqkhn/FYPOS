@@ -82,7 +82,7 @@ class AccountsController extends Controller
     			"email"=>"required|unique:accounts",
     			"userpassword"=>"required|min:6"
     		]);
-    	DB::insert("insert into accounts values(?,?,?,?,?)",[null,$req->userfullname,$req->email,$req->userpassword,$req->role]);
+    	DB::insert("insert into accounts values(?,?,?,?,?,?)",[null,$req->userfullname,$req->email,$req->userpassword,$req->role, 1]);
     	return view("login");
 
     }

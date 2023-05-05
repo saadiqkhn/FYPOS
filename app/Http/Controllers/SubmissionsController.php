@@ -11,7 +11,7 @@ class SubmissionsController extends Controller
     public function index()
     {
         // dd('index');
-        $submissions = DB::table('submissions')->get();
+        $submissions = DB::table('submissions')->where('project_id', session()->get('project_id'))->get();
         return view('submissions.index', ['submissions' => $submissions]);
     }
 
@@ -32,6 +32,7 @@ class SubmissionsController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'submission_date' => 'required|date',
+            'project_id' => 'required|numeric',
             'add_date' => 'required|date',
             'total_marks' => 'required|numeric',
             'notes' => 'nullable',

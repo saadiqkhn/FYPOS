@@ -63,7 +63,7 @@
                 <input type="text" class="form-control" id="title" name="title" required>
             </div>
             <input type="text" hidden name="add_date" value="{{date("Y/m/d")}}"/>
-            <input type="text" hidden name="project_id" value="$project_id"/>
+            <input type="text" hidden name="project_id" value="{{Session::get('project_id')}}"/>
             <div class="form-group">
                 <label for="submission_date">Submission Date</label>
                 <input type="date" class="form-control" id="submission_date" name="submission_date" required>
