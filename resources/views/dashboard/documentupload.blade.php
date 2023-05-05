@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard</title>
+  <title>Dashboard - FYP</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -25,13 +25,9 @@
   <link href="{{asset('dashboard/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
   <link href="{{asset('dashboard/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
   <link href="{{asset('dashboard/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
-  
 
   <!-- Template Main CSS File -->
   <link href="{{asset('dashboard/assets/css/style.css')}}" rel="stylesheet">
-  <!-- Option 1: Include in HTML -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-
 
   
 </head>
@@ -42,7 +38,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="#" class="logo d-flex align-items-center">
+      <a href="/" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">FYPOS</span>
       </a>
@@ -67,7 +63,7 @@
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             
             <span class="d-none d-md-block dropdown-toggle ps-2">{{session('cuser')}}</span>
-          </a>
+          </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
@@ -76,6 +72,8 @@
             </li>
             <li>
               <hr class="dropdown-divider">
+            </li>
+
             <li>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <i class="bi bi-person"></i>
@@ -99,9 +97,9 @@
       </ul>
     </nav><!-- End Icons Navigation -->
 
-  </header>End Header
+  </header><!-- End Header -->
 
-  ======= Sidebar =======
+  <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -113,19 +111,19 @@
         </a>
       </li><!-- End Dashboard Nav -->
       <li class="nav-item">
-        <a class="nav-link " href="/generalguidelines">
+        <a class="nav-link " href="/studentdashboard">
           <i class="bi bi-grid"></i>
-         <span> General Guidelines  <i class="badge badge-light-warning">@if($notification)has notification @else not yet @endif </i> </span>
+          <span>General Guideline</span>
         </a>
-      </li></s!-- End Dashboard Nav -->
+      </li><!-- End Dashboard Nav -->
       <li class="nav-item">
-        <a class="nav-link " href="#">
+        <a class="nav-link " href="/studentdashboard">
           <i class="bi bi-grid"></i>
           <span>Project Status</span>
         </a>
       </li><!-- End Dashboard Nav -->
       <li class="nav-item">
-        <a class="nav-link " href="/documentsubmission">
+        <a class="nav-link " href="/studentdashboard">
           <i class="bi bi-grid"></i>
           <span>Document Submission</span>
         </a>
@@ -160,7 +158,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Student Dashboard</h1>
+      <h1>Dashboard</h1>
       
     </div><!-- End Page Title -->
 
@@ -170,51 +168,17 @@
         <!-- Left side columns -->
         <div class="col-lg-8">
           
-              <h3 class="text-danger mt-3" align="right"><font size="7">{{$days}}</font> days </h3>
+              <h3 class="text-danger mt-3" align="right"><font size="7">Project Document Upload</font></h3>
 
-              <div class="news">
-                <div class="post-item clearfix">
-                  <img src="assets/img/news-1.jpg" alt="">
-                  <h4 align="right"><a href="#">remaining until Final Project Presentation</p></a></h4>
-                </div>
-              </div><!-- End sidebar recent posts-->
-          
-          <div class="card" style="margin-top:100px;">
-            
+             @if(session('success')) 
+              <p><strong><font color='green'>{{ session('success') }}</font></strong></p> 
+            @endif
+                <form class="mt-5" action="/uploaddocument" method="post" enctype="multipart/form-data">
+                  @csrf
+                <input type="file" name="myfile" class="form-control" />
+                <button type="submit" class="btn btn-primary mt-5"> Upload Document </button>
+              </form>
 
-            <div class="card-body pb-0">
-              <h3 class="text-danger mt-3">Latest  Announcement </h3>
-
-              <div class="news">
-                <div class="post-item clearfix">
-                  <img src="assets/img/news-1.jpg" alt="">
-                  <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
-                  <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
-                </div>
-
-                
-
-                
-                
-              </div><!-- End sidebar recent posts-->
-
-            </div>
-          </div><!-- End News & Updates -->
-
-          <div class="card" style="margin-top:100px;">
-            
-
-            <div class="card-body pb-0">
-              
-
-                
-
-                
-                
-              </div><!-- End sidebar recent posts-->
-
-            </div>
-          </div><!-- End News & Updates -->
         </div><!-- End Left side columns -->
 
         <!-- Right side columns -->

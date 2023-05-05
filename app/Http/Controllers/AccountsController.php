@@ -38,8 +38,9 @@ class AccountsController extends Controller
     		    	$today = Carbon::now();    		    	
     		    	//$interval = $pdate->diff($today);
     		    	$days =  $today->diffInDays($pdate);
-                    
+					// return redirect('/studentdashboard');
     		    	return view("dashboard.index",compact('members','supervisors','days'));
+                
     		    }
     		    else
     		    {
@@ -50,7 +51,9 @@ class AccountsController extends Controller
             {
                 session()->put('cuser',$req->email);
                 session()->put('userrole',$req->role);
-                return view("dashboard.teacherdashboard");
+        		$projects = DB::table('projects')->where('supervisor1', $req->email)->orWhere('supervisor2', $req->email)->get();
+				
+                return view("dashboard.select-project", ['projects' => $projects]);
             }
     	}
     	else
@@ -61,6 +64,11 @@ class AccountsController extends Controller
 
     }
 
+	public function godashboard($project_id)
+	{
+		session()->put('project_id',$project_id);
+       	return view("dashboard.teacherdashboard");
+	}
     public function register()
     {
     	return view('register');
@@ -115,7 +123,23 @@ class AccountsController extends Controller
     }
     public function studentdashboard(Request $req)
     {
+
+		$guides = DB::select("select * from guidelines inner join projects where guidelines.prjid=projects.id");
+		
+		$length = count($guides);
+
         $cuser = session()->get("cuser");
+
+		$myvisits_length = DB::select("select guideline_views from accounts where email=? ", [$cuser]);
+
+		if($length > $myvisits_length[0]->guideline_views )
+		{
+			$notification = true;
+			 // DB::table('accounts')->where('email', $cuser )->update(['guideline_views' => $length]);
+		}
+		else{
+			$notification = false;
+		}
 		// dd($cuser);
         $user = DB::select("select * from projects where member1=? or member2=? or member3=? or member4=?",[$cuser,$cuser,$cuser,$cuser]);
                 if($user)
@@ -129,7 +153,7 @@ class AccountsController extends Controller
                     
 
                     
-                    return view("dashboard.index",compact('members','supervisors','days'));
+                    return view("dashboard.index",compact('members','supervisors','days' , 'notification'));
                 
                 
                 }
@@ -159,13 +183,12 @@ class AccountsController extends Controller
     	return view("dashboard.documentupload");
     }
 
-    public function Uploaddocument(Request $request)
+    public function uploaddocument(Request $request)
     {
-        
     	$file =  $request->myfile;
     	$filename =  $file->getClientOriginalName();
     	$cuser = session()->get('cuser');
-    			$user = DB::select("select * from projects where member4=?",[$cuser,$cuser,$cuser,$cuser]);
+    			$user = DB::select("select * from projects where member4=?",[$cuser]);
     	$pid = $user[0]->id;	
 
 
@@ -178,8 +201,8 @@ class AccountsController extends Controller
         {
         	dd ($path);
         }*/
-
-         if(File::isDirectory($path)){
+		// dd ($path);
+        //  if(File::isDirectory($path)){
 
         	if(File::exists(public_path('uploads/'.$pid)))
         	{
@@ -196,9 +219,9 @@ class AccountsController extends Controller
         /* Store $imageName name in DATABASE from HERE */
          
 
-    }
+    // }
         return back()
-            ->with('success','You have successfully upload Document.');
+            ->with('success','You have successfully uploaded Document.');
             
     }
 

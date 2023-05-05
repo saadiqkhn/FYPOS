@@ -19,7 +19,29 @@
     </div>
   </footer><!-- End Footer -->
 
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
   
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDycpC8Tf-d4ikiDJXnmQ0DvdOusAqtX9Y",
+      authDomain: "fypos-6cbaf.firebaseapp.com",
+      projectId: "fypos-6cbaf",
+      storageBucket: "fypos-6cbaf.appspot.com",
+      messagingSenderId: "492772338108",
+      appId: "1:492772338108:web:d30306c2f5a1318ff863b9",
+      measurementId: "G-0CP0B1QM4L"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
 
   <!-- Vendor JS Files -->
   <script src="{{asset('assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
