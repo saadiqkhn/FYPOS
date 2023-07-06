@@ -11,6 +11,8 @@ use App\Http\Controllers\MailController;
 
 class AccountsController extends Controller
 {
+	
+
     public function index()
     {
     	return view('welcome');
@@ -38,8 +40,7 @@ class AccountsController extends Controller
     		    	$today = Carbon::now();    		    	
     		    	//$interval = $pdate->diff($today);
     		    	$days =  $today->diffInDays($pdate);
-					// return redirect('/studentdashboard');
-    		    	return view("dashboard.index",compact('members','supervisors','days'));
+					return redirect('/studentdashboard');
                 
     		    }
     		    else
@@ -86,7 +87,7 @@ class AccountsController extends Controller
 		if($req->projectID != null && $req->member != null){
 			DB::insert("UPDATE projects SET $req->member = '$req->email' WHERE id = $req->projectID");
 		}
-    	DB::insert("insert into accounts values(?,?,?,?,?)",[null,$req->userfullname,$req->email,$req->userpassword,$req->role]);
+    	DB::insert("insert into accounts values(?,?,?,?,?,?)",[null,$req->userfullname,$req->email,$req->userpassword,$req->role, null]);
     	return redirect()->route('login');
 
     }
@@ -124,39 +125,8 @@ class AccountsController extends Controller
     public function studentdashboard(Request $req)
     {
 
-		$guides = DB::select("select * from guidelines inner join projects where guidelines.prjid=projects.id");
-		
-		$length = count($guides);
-
-        $cuser = session()->get("cuser");
-
-		$myvisits_length = DB::select("select guideline_views from accounts where email=? ", [$cuser]);
-
-		if($length > $myvisits_length[0]->guideline_views )
-		{
-			$notification = true;
-			 // DB::table('accounts')->where('email', $cuser )->update(['guideline_views' => $length]);
-		}
-		else{
-			$notification = false;
-		}
-		// dd($cuser);
-        $user = DB::select("select * from projects where member1=? or member2=? or member3=? or member4=?",[$cuser,$cuser,$cuser,$cuser]);
-                if($user)
-                {
-                    $members =[$user[0]->member1,$user[0]->member2,$user[0]->member3,$user[0]->member4];
-                    $supervisors =[$user[0]->supervisor1,$user[0]->supervisor2];
-                    $pdate = $user[0]->pddate;
-                    $today = Carbon::now();                 
-                    //$interval = $pdate->diff($today);
-                    $days =  $today->diffInDays($pdate);
-                    
-
-                    
-                    return view("dashboard.index",compact('members','supervisors','days' , 'notification'));
-                
-                
-                }
+		$data = $this->getsidebar();
+		return view("dashboard.index",['guides'=>$data['guides'], 'members'=>$data['members'],'supervisors'=>$data['supervisors'],'days'=>$data['days'] , 'notification'=>$data['notification'], 'user'=>$data['user']]);
 
 
     	//return view('dashboard.index');
@@ -183,47 +153,7 @@ class AccountsController extends Controller
     	return view("dashboard.documentupload");
     }
 
-    public function uploaddocument(Request $request)
-    {
-    	$file =  $request->myfile;
-    	$filename =  $file->getClientOriginalName();
-    	$cuser = session()->get('cuser');
-    			$user = DB::select("select * from projects where member4=?",[$cuser]);
-    	$pid = $user[0]->id;	
-
-
-        $path = public_path('uploads/');
-        /*if(File::exists($path . $pid))
-        {
-        	dd( $path . $pid);
-        }
-        else
-        {
-        	dd ($path);
-        }*/
-		// dd ($path);
-        //  if(File::isDirectory($path)){
-
-        	if(File::exists(public_path('uploads/'.$pid)))
-        	{
-        	$file->move($path .  $pid . "/" , $filename);
-        		
-        	}
-        	else
-        	{
-        	File::makeDirectory($path . $pid, 0777, true, true);
-        	
-        
-        	$file->move($path .  $pid . "/" , $filename);
-        	}
-        /* Store $imageName name in DATABASE from HERE */
-         
-
-    // }
-        return back()
-            ->with('success','You have successfully uploaded Document.');
-            
-    }
+    
 
     public function guidelines()
     {
@@ -248,20 +178,22 @@ class AccountsController extends Controller
     {
 
 
-                $cuser = session()->get('cuser');
-                $user = DB::select("select * from projects where member1=? or member2=? or member3=? or member4=?",[$cuser,$cuser,$cuser,$cuser]);
-                if($user)
-                {
-                    $members =[$user[0]->member1,$user[0]->member2,$user[0]->member3,$user[0]->member4];
-                    $supervisors =[$user[0]->supervisor1,$user[0]->supervisor2];
-                    
-                    
-                }
+		$data = $this->getsidebar();
+		return view("dashboard.generalguidelines",['guides'=>$data['guides'], 'members'=>$data['members'],'supervisors'=>$data['supervisors'],'days'=>$data['days'] , 'notification'=>$data['notification'], 'user'=>$data['user']]);
 
-
-
-
-        $guides = DB::select("select * from guidelines inner join projects where guidelines.prjid=projects.id");
-        return view('dashboard.generalguidelines',compact('members','supervisors','guides'));
     }
+	public function uploaddocument(Request $request, $id)
+	{
+		$submission = DB::table('submissions')->where('id', $id)->first();
+
+		if ($request->hasFile('document')) {
+			$filename = $request->file('document')->getClientOriginalName();
+			$request->file('document')->storeAs('uploads', $filename);
+		}
+
+		return redirect()->route('uploadsubmissions.index', $id)->with('success', 'Document uploaded successfully.');
+	}
+
 }
+
+

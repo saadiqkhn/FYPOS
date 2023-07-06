@@ -52,56 +52,38 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Teacher Dashboard</h1>
+      <h1>Student Dashboard</h1>
       
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
         {{-- @extends('layouts.app') --}}
+        @foreach($submissions as $submission)
+            <h1>{{ $submission->title }}</h1>
+            <p>Date Added: {{ $submission->add_date }}</p>
+            <p>Submission Date: {{ $submission->submission_date }}</p>
+            <p>Total Marks: {{ $submission->total_marks }}</p>
+            <p>Earned Marks: {{ $submission->earned_marks }}</p>
+            <p>Notes: {{ $submission->notes }}</p>
 
-    <div class="container">
-        <h1>Submissions</h1>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Date Added</th>
-                    <th>Submission Date</th>
-                    <th>Total Marks</th>
-                    <th>Submitted</th>
-                    <th>Notes</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-             
-                @foreach($submissions as $submission)
-                    <tr>
-                        <td>{{ $submission->title }}</td>
-                        <td>{{ $submission->add_date }}</td>
-                        <td>{{ $submission->submission_date }}</td>
-                        <td>{{$submission->earned_marks??null}}/{{ $submission->total_marks }}</td>
-                        <td>@if($submission->date_submitted != null)<a href="{{ asset('storage/documents/'.$submission->id.'/'.$submission->document) }}"target="_blank" >Document  <i data-feather="paperclip"></i></a> @else <span class="badge badge-pill badge-warning">not submitted</span> @endif</td>
-                        {{-- <a href="{{ asset('storage/documents/'.$submission->document) }}" >View Document</a> --}}
-
-                        <td>{{ $submission->notes }}</td>
-                        <td>
-                            <a href="{{ route('submissions.show', $submission->id) }}" class="btn btn-primary">View</a>
-                            <a href="{{ route('submissions.edit', $submission->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('submissions.destroy', $submission->id) }}" method="POST" style="display: inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-        
-        <a href="{{ route('submissions.create') }}" class="btn btn-success">Create Submission</a>
-    </div>
+            @if(session('success')) 
+            <p><strong><font color='green'>{{ session('success') }}</font></strong></p> 
+            @endif
+            {{-- <form class="mt-5" action="{{ route('submissions.upload', $submission->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                    <input type="file" name="myfile" class="form-control" />
+                    <button type="submit" class="btn btn-primary mt-5"> Upload Document </button>
+                </form> --}}
+            
+            {{-- <form action="{{ route('submissions.upload', $submission->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="document">Upload Document:</label>
+                    <input type="file" name="document" id="document">
+                </div>`
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form> --}}
+        @endforeach
 
       
     </section>

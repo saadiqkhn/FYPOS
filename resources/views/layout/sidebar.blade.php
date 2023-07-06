@@ -3,7 +3,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="#">
+        <a class="nav-link " href="{{route('godashboard', session('project_id'))}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -15,7 +15,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
       <li class="nav-item">
-        <a class="nav-link " href="/submissions">
+        <a class="nav-link " href="#">
           <i class="bi bi-grid"></i>
           <span>Project Status</span>
         </a>

@@ -87,12 +87,97 @@ class SubmissionsController extends Controller
 
     public function student_index(Type $var = null)
     {
-        $submissions = DB::table('submissions')->get();
-        return view('submissions.index', ['submissions' => $submissions]);
+        $email = session()->get('cuser');
+        $project = DB::table('projects')->where('member1', $email)->orWhere('member2', $email)->orWhere('member3', $email)->orWhere('member4', $email)->first();
+        $submissions = DB::table('submissions')->where('project_id',$project->id)->get();
+        $data = $this->getsidebar();
+		return view("uploadsubmissions.index",['submissions' => $submissions, 'guides'=>$data['guides'], 'members'=>$data['members'],'supervisors'=>$data['supervisors'],'days'=>$data['days'] , 'notification'=>$data['notification'], 'user'=>$data['user']]);
+
+
+        
     }
+
+    public function student_upload_document(Request $request, $id)
+{
+    dd($request, 'student_upload_document');
+    $submission = DB::table('submissions')->where('id', $id)->first();
+
+    if ($request->hasFile('document')) {
+        $filename = $request->file('document')->getClientOriginalName();
+        $request->file('document')->storeAs('uploads', $filename);
+    }
+
+    return redirect()->route('uploadsubmissions.index', $id)->with('success', 'Document uploaded successfully.');
+}
+
+
+public function showToStudent($id)
+{
+    $submissions = DB::table('submissions')->where('project_id',$id)->get();
+
+    if (!$submissions) {
+        return redirect()->back()->with('error', 'Submission not found.');
+    }
+// dd($submissions);
+    // return view('submissions.show-student', compact('submissions'));
+    $data = $this->getsidebar();
+    return view("submissions.show-student",['submissions' => $submissions, 'guides'=>$data['guides'], 'members'=>$data['members'],'supervisors'=>$data['supervisors'],'days'=>$data['days'] , 'notification'=>$data['notification'], 'user'=>$data['user']]);
+
+}
+
+
+
+
+
+
+
+public function uploadDocument(Request $request, $id)
+{
+    dd($request , 'uploadDocument');
+    $submission = DB::table('submissions')->where('id', $id)->first();
+
+    if ($request->hasFile('document')) {
+        $filename = $request->file('document')->getClientOriginalName();
+        $request->file('document')->storeAs('uploads', $filename);
+    }
+
+    return redirect()->route('submissions.show_student', $id)->with('success', 'Document uploaded successfully.');
+}
+
+public function storeDocument(Request $request, $id)
+{
+    // dd($id);
+    // Get the submission
+    $submission = DB::table('submissions')->where('id', $id)->first();
+    // Check if the submission exists
+    if (!$submission) {
+        return redirect()->back()->with('error', 'Submission not found.');
+    }
+
+    // Validate the file
+    $request->validate([
+        'document' => 'required|file|max:2048',
+    ]);
     
-    function student_upload_document(Type $var = null)
-    {
-        # code...
-    }
+
+    // dd($request->validate);
+
+    // Store the file
+    $file = $request->file('document');
+    $fileName = time() . '_' . $file->getClientOriginalName();
+    $file->storeAs('public/documents/'.$id, $fileName);
+
+    // Save the file name to the database
+    DB::table('submissions')->where('id', $id)->update([
+        'document' => $fileName,
+        'date_submitted' => date("Y/m/d"),
+
+    ]);
+
+    // $submission = DB::table('submissions')->where('id', $id)->first();
+// dd($submission);
+    return  redirect()->route('submissions.show_student', $submission->project_id);
+}
+
+
 }
