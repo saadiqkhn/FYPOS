@@ -51,6 +51,66 @@
 
     <section class="section dashboard">
       
+      {{-- @extends('layouts.app') --}}
+      <div class="container">
+        <h1 class="mb-4">Project Overview</h1>
+
+        <div class="project-metrics mb-4">
+            <h2>Project Metrics</h2>
+            <p>Total Tasks: <strong>20</strong></p>
+            <p>Completed Tasks: <strong>12</strong></p>
+            <p>Pending Tasks: <strong>8</strong></p>
+            <p>Overall Progress: <strong>60%</strong></p>
+            <p>Start Date: <strong>January 1, 2023</strong></p>
+            <p>End Date: <strong>March 31, 2023</strong></p>
+        </div>
+
+        <div class="task-tracking mb-4">
+            <h2>Task Tracking</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Status</th>
+                        <th>Assigned To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Task 1: Requirement Gathering</td>
+                        <td><span class="badge badge-success">Completed</span></td>
+                        <td>Cipoqo@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>Task 2: Design Prototype</td>
+                        <td><span class="badge badge-warning">Pending</span></td>
+                        <td>affan@gmail.com</td>
+                    </tr>
+                    <!-- Add more tasks -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Add styles and content for Project Timeline, Resource Allocation, and Issues and Bugs sections -->
+    </div>
+
+
+<style>
+    .project-metrics p {
+        margin: 0.5rem 0;
+    }
+
+    .task-tracking .badge {
+        font-size: 14px;
+    }
+
+    /* Add more custom styles as needed */
+</style>
+      
+      
+
+
+
     </section>
 
   </main><!-- End #main -->

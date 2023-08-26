@@ -180,4 +180,27 @@ public function storeDocument(Request $request, $id)
 }
 
 
+
+
+
+
+public function projectOverview()
+{
+    $totalSubmissions = DB::table('submissions')->count();
+    dd($totalSubmissions);
+
+    return view('dashboard.project-overview', ['totalSubmissions' => $totalSubmissions]);
+}
+
+
+public function mandview()
+{
+    // You can retrieve any data you need here and pass it to the view
+    // For now, let's assume you don't need additional data
+    return view('marks_review');
+}
+
+
+
+
 }

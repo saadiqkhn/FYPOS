@@ -65,6 +65,9 @@ Route::post('submissions/{id}/upload', 'SubmissionsController@uploadDocument')->
 Route::post('submissions/{id}/store-document', 'SubmissionsController@storeDocument')->name('submissions.storeDocument');
 
 
+Route::get('/dashboard/project-overview', 'SubmissionsController@projectOverview')->name('dashboard.project_overview');
+Route::get('/marks-and-reviews', 'SubmissionsController@mandview')->name('marks_review');
+
 // Route::get('/submissions/create', [SubmissionsController::class, 'create']);
 // Route::post('/submissions/store', [SubmissionsController::class, 'store']);
 // Route::get('/submissions/{id}', [SubmissionsController::class, 'show']);

@@ -16,7 +16,7 @@
       </a>
     </li><!-- End Dashboard Nav -->
     <li class="nav-item">
-      <a class="nav-link " href="#">
+      <a class="nav-link " href="{{ route('dashboard.project_overview') }}">
         <i class="bi bi-grid"></i>
         <span>Project Status</span>
       </a>
@@ -31,7 +31,7 @@
     
     </li><!-- End Dashboard Nav -->
     <li class="nav-item">
-      <a class="nav-link " href="/studentdashboard">
+      <a class="nav-link " href="{{ route('marks_review') }}">
         <i class="bi bi-grid"></i>
         <span>Marks and Reviews</span>
       </a>
