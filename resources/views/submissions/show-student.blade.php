@@ -9,7 +9,8 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-   @include('layout.script-student')
+  
+  @include('layout.script-student')
   
 </head>
 
@@ -23,17 +24,27 @@
  <!-- End Sidebar-->
 
 
-
-  
   <main id="main" class="main">
 
-    <div class="pagetitle">
+    <div class="pagetitle row justify-content-between">
       <h1>Student Dashboard</h1>
-      
+      @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+      @elseif($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+      @endif
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-      <div class="row">
+      {{-- <div class="row">
 
         <!-- Left side columns -->
         <div class="col-lg-8">
@@ -161,7 +172,7 @@
               </div>
 
             </div>
-          </div><!-- End Recent Activity --> --}}
+          </div><!-- End Recent Activity --> 
 
           <!-- Budget Report -->
           
@@ -171,9 +182,77 @@
           <!-- News & Updates Traffic -->
           
 
-        </div><!-- End Right side columns -->
+        </div>
 
-      </div>
+      </div> --}}
+          <div class="container">
+            <div class="row">
+              @foreach($submissions as  $submission)
+                <div class="col-6">
+                  <div class="card">
+                    <div class="card-header justify-content-center">
+                      <h2>{{ $submission->title }}</h2>
+                      <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-11">
+                                <div class="card">
+                                    <div class="card-header">{{ __('Upload Document') }}</div>
+                
+                                    <div class="card-body">
+                                      @if($submission->document == null)
+                                        <form method="POST" action="{{ route('submissions.storeDocument', $submission->id) }}" enctype="multipart/form-data">
+                                            @csrf
+                
+                                            <div class="form-group row mb-1">
+                
+                                                <div class="col-md-12">
+                                                    <input id="document" type="file" class="form-control"  name="document" required>
+                                                </div>
+                                            </div>
+                
+                                            <div class="form-group row mb-0">
+                                                <div class="col-md-6 offset-md-4">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        {{ __('Upload') }}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                      @else
+                                        <div class="row">
+                                          <div class="col-12">
+                                            <p>Document: {{ $submission->document }}</p>
+                                          </div>
+                                          <div class="col-12">
+                                            <p>Submission Date: {{ $submission->date_submitted }}</p>
+                                          </div>
+                                        </div>
+                                      @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-12">
+                          <p>Submission Date: {{ $submission->submission_date }}</p>
+                        </div>
+                        <div class="col-12">
+                          <p>Total Marks: {{ $submission->total_marks }}</p>
+                        </div>
+                        <div class="col-12">
+                          <p>Notes: {{ $submission->notes }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            </div>
+          </div>
+  
     </section>
 
   </main><!-- End #main -->

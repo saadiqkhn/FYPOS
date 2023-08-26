@@ -5,11 +5,11 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - FYP</title>
+  <title>Dashboard</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  @include('layout.script-student')
+   @include('layout.script-student')
   
 </head>
 
@@ -22,6 +22,9 @@
  @include('layout.sidebar-student')
  <!-- End Sidebar-->
 
+
+
+  
   <main id="main" class="main">
 
     <div class="pagetitle">
@@ -29,51 +32,33 @@
       
     </div><!-- End Page Title -->
 
-    <section class="section dashboard">
-      <div class="row">
-
-        <!-- Left side columns -->
-        <div class="col-lg-8">
-          
-               
-              
-              <h3 class="text-danger mt-1">Guidelines </h3>
-              @foreach($guides as $guid)
-
-              
-              <div class="card" style="margin-top:15px;">
-            
-
-                <div class="card-body pb-0">
-                  <h3 class="mt-1">Teacher: {{$guid->teacher}} </h3>
-              <h3 class=" mt-1">Project: {{$guid->ptitle}} </h3>
-              <div class="news">
-                <div class="post-item clearfix">
-                  <img src="assets/img/news-1.jpg" alt="">
-                  
-                  <h3 class="text-primary">{{$guid->guidelines}}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-      
-                  
-                @endforeach
-                
-
-                
-
-                
-                
-              </div><!-- End sidebar recent posts-->
-
-            </div>
-          </div><!-- End News & Updates -->
-        </div><!-- End Left side columns -->
-
-        <!-- Right side columns -->
-        </div>
-    </section>
+    
+    <h2>Marks and Reviews</h2>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Submission Title</th>
+                    <th>Marks</th>
+                    <th>Review</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Assignment 1</td>
+                    <td>85</td>
+                    <td>Well done. Clear explanation.</td>
+                </tr>
+                <tr>
+                    <td>Project Report</td>
+                    <td>92</td>
+                    <td>Excellent work. In-depth analysis.</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+@endsection
 
   </main><!-- End #main -->
 

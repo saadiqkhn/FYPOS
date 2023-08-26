@@ -82,7 +82,9 @@
                         <td>{{ $submission->add_date }}</td>
                         <td>{{ $submission->submission_date }}</td>
                         <td>{{$submission->earned_marks??null}}/{{ $submission->total_marks }}</td>
-                        <td>@if($submission->date_submitted != null)<a href="#" >Document <i data-feather="paperclip"></i></a> @else <span class="badge badge-pill badge-warning">not submitted</span> @endif</td>
+                        <td>@if($submission->date_submitted != null)<a href="{{ asset('storage/documents/'.$submission->id.'/'.$submission->document) }}"target="_blank" >Document  <i data-feather="paperclip"></i></a> @else <span class="badge badge-pill badge-warning">not submitted</span> @endif</td>
+                        {{-- <a href="{{ asset('storage/documents/'.$submission->document) }}" >View Document</a> --}}
+
                         <td>{{ $submission->notes }}</td>
                         <td>
                             <a href="{{ route('submissions.show', $submission->id) }}" class="btn btn-primary">View</a>

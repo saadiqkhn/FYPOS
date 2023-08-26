@@ -13,12 +13,34 @@ class MailController extends Controller
 {
     public function acceptInvite($projectID, $email, $member)
     {
-        // dd("You have successfully accepted the invite", $projectID, $email, $member);
 
         Session::put('projectID', $projectID);
         Session::put('email', $email);
         Session::put('member', $member);
-        return redirect('/register');
+        $user = DB::table('accounts')->where('email', $email)->first();
+        if($member == 'member1' || $member == 'member2' || $member == 'member3')
+        {
+            $students = DB::table('projects')->where('member1', $email)->orWhere('member2', $email)->orWhere('member3', $email)->first();
+        
+            if($students != null)
+            {
+                dd($email," STUDENT already exists");
+            }
+        }
+        // dd("You have successfully accepted the invite", $projectID, $email, $member);
+        
+        if($user != null)
+        {
+        
+            DB::insert("UPDATE projects SET $member = '$email' WHERE id = $projectID");
+
+            return redirect('/login');   
+
+        }
+        else
+        {
+            return redirect('/register');
+        }
     }
     
     public function sendMailInvite($emails, $cuser)
@@ -29,22 +51,32 @@ class MailController extends Controller
         $emails = $emails[0];
         $projectID = $project[0]->id;
             $member = 'member1';
-            if(array_key_exists('member1', $emails))
-            Mail::to($emails['member1'])->send(new MailableName($name, $projectID, $emails['member1'], $member));
+            if($emails['member1'] != null)
+            {
+                Mail::to($emails['member1'])->send(new MailableName($name, $projectID, $emails['member1'], $member));
+            }
             $member = 'member2';
-            if(array_key_exists('member2', $emails))
-            Mail::to($emails['member2'])->send(new MailableName($name, $projectID, $emails['member2'], $member));
+            if($emails['member2'] != null)
+            {
+                Mail::to($emails['member2'])->send(new MailableName($name, $projectID, $emails['member2'], $member));
+            }
             $member = 'member3';
-            if(array_key_exists('member3', $emails))
-            Mail::to($emails['member3'])->send(new MailableName($name, $projectID, $emails['member3'], $member));
+            if($emails['member3'] != null)
+            {
+                Mail::to($emails['member3'])->send(new MailableName($name, $projectID, $emails['member3'], $member));
+            }
             $member = 'supervisor1';
 
-            if(array_key_exists('supervisor1', $emails))
-            Mail::to($emails['supervisor1'])->send(new MailableName($name, $projectID, $emails['supervisor1'], $member));
+            if($emails['supervisor1'] != null)
+            {
+                Mail::to($emails['supervisor1'])->send(new MailableName($name, $projectID, $emails['supervisor1'], $member));
+            }
             $member = 'supervisor2';
 
-            if(array_key_exists('supervisor2', $emails))
-            Mail::to($emails['supervisor2'])->send(new MailableName($name, $projectID, $emails['supervisor2'], $member));
+            if($emails['supervisor2'] != null)
+            {
+                Mail::to($emails['supervisor2'])->send(new MailableName($name, $projectID, $emails['supervisor2'], $member));
+            }
 
 
     }

@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/sendInvite', [MailController::class, 'sendMailInvite'])->name('sendInvite');
 
 
-Route::get('/acceptInvite/{id}/{email}/{member}', [MailController::class, 'acceptInvite'])->name('acceptInvite');
+Route::get('/acceptInvite/{id}/{email?}/{member?}', [MailController::class, 'acceptInvite'])->name('acceptInvite');
 
 Route::get('/',[AccountsController::class,"index"]);
 Route::get('/login',[AccountsController::class,"login"])->name('login');
@@ -54,8 +54,19 @@ Route::get('/submissions', [SubmissionsController::class, 'index']);
 //Route::get('/submissions/create', 'SubmissionsController@create')->name('submissions.create');
 
 Route::resource('submissions', SubmissionsController::class);
-Route::get('/student-submissions/index', [SubmissionsController::class, 'student_index']);
-Route::put('/student-submissions/upload-document', [SubmissionsController::class, 'student_upload_document']);
+Route::get('uploadsubmissions/index', [SubmissionsController::class, 'student_index']);
+Route::put('uploadsubmissions/{id}/documentupload', [SubmissionsController::class, 'student_upload_document']);
+
+
+// Route::put('/uploadsubmissions/upload-document', [SubmissionsController::class, 'student_upload_document']);
+
+Route::get('submissions/{id?}/show-student', 'SubmissionsController@showToStudent')->name('submissions.show_student');
+Route::post('submissions/{id}/upload', 'SubmissionsController@uploadDocument')->name('submissions.upload');
+Route::post('submissions/{id}/store-document', 'SubmissionsController@storeDocument')->name('submissions.storeDocument');
+
+
+Route::get('/dashboard/project-overview', 'SubmissionsController@projectOverview')->name('dashboard.project_overview');
+Route::get('/marks-and-reviews', 'SubmissionsController@mandview')->name('marks_review');
 
 // Route::get('/submissions/create', [SubmissionsController::class, 'create']);
 // Route::post('/submissions/store', [SubmissionsController::class, 'store']);

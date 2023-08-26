@@ -29,7 +29,14 @@
   <!-- Template Main CSS File -->
   <link href="{{asset('dashboard/assets/css/style.css')}}" rel="stylesheet">
 
-  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/feather-icons"></script>
+
+
 </head>
 
 <body>
@@ -45,72 +52,40 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Teacher Dashboard</h1>
+      <h1>Student Dashboard</h1>
       
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
+        {{-- @extends('layouts.app') --}}
+        @foreach($submissions as $submission)
+            <h1>{{ $submission->title }}</h1>
+            <p>Date Added: {{ $submission->add_date }}</p>
+            <p>Submission Date: {{ $submission->submission_date }}</p>
+            <p>Total Marks: {{ $submission->total_marks }}</p>
+            <p>Earned Marks: {{ $submission->earned_marks }}</p>
+            <p>Notes: {{ $submission->notes }}</p>
+
+            @if(session('success')) 
+            <p><strong><font color='green'>{{ session('success') }}</font></strong></p> 
+            @endif
+            {{-- <form class="mt-5" action="{{ route('submissions.upload', $submission->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                    <input type="file" name="myfile" class="form-control" />
+                    <button type="submit" class="btn btn-primary mt-5"> Upload Document </button>
+                </form> --}}
+            
+            {{-- <form action="{{ route('submissions.upload', $submission->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="document">Upload Document:</label>
+                    <input type="file" name="document" id="document">
+                </div>`
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form> --}}
+        @endforeach
+
       
-      {{-- @extends('layouts.app') --}}
-      <div class="container">
-        <h1 class="mb-4">Project Overview</h1>
-
-        <div class="project-metrics mb-4">
-            <h2>Project Metrics</h2>
-            <p>Total Tasks: <strong>20</strong></p>
-            <p>Completed Tasks: <strong>12</strong></p>
-            <p>Pending Tasks: <strong>8</strong></p>
-            <p>Overall Progress: <strong>60%</strong></p>
-            <p>Start Date: <strong>January 1, 2023</strong></p>
-            <p>End Date: <strong>March 31, 2023</strong></p>
-        </div>
-
-        <div class="task-tracking mb-4">
-            <h2>Task Tracking</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Task</th>
-                        <th>Status</th>
-                        <th>Assigned To</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Task 1: Requirement Gathering</td>
-                        <td><span class="badge badge-success">Completed</span></td>
-                        <td>Cipoqo@gmail.com</td>
-                    </tr>
-                    <tr>
-                        <td>Task 2: Design Prototype</td>
-                        <td><span class="badge badge-warning">Pending</span></td>
-                        <td>affan@gmail.com</td>
-                    </tr>
-                    <!-- Add more tasks -->
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Add styles and content for Project Timeline, Resource Allocation, and Issues and Bugs sections -->
-    </div>
-
-
-<style>
-    .project-metrics p {
-        margin: 0.5rem 0;
-    }
-
-    .task-tracking .badge {
-        font-size: 14px;
-    }
-
-    /* Add more custom styles as needed */
-</style>
-      
-      
-
-
-
     </section>
 
   </main><!-- End #main -->
@@ -137,7 +112,9 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('dashboard/assets/js/main.js')}}"></script>
-
+  <script>
+    feather.replace()
+  </script>
 </body>
 
 </html>
